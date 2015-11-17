@@ -92,6 +92,18 @@ int guac_protocol_send_connect(guac_socket* socket, const char** args);
  */
 int guac_protocol_send_disconnect(guac_socket* socket);
 
+ /**
+ * Sends a disconnected from server instruction over the given guac_socket connection.
+ *
+ * If an error occurs sending the instruction, a non-zero value is
+ * returned, and guac_error is set appropriately.
+ *
+ * @param socket The guac_socket connection to use.
+ * @param reason The reason of disconnection.
+ * @return Zero on success, non-zero on error.
+ */
+int guac_protocol_send_disconnected(guac_socket* socket, int reason);
+
 /**
  * Sends an error instruction over the given guac_socket connection.
  *
