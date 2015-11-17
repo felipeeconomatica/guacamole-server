@@ -247,7 +247,9 @@ int rdp_guac_client_handle_messages(guac_client* client) {
 
         /* Handle RDP disconnect */
         if (freerdp_shall_disconnect(rdp_inst)) {
+            int reason = freerdp_rdp_errorInfo(rdp_inst);
             guac_client_log(client, GUAC_LOG_INFO, "RDP server closed connection");
+            guac_protocol_send_disconnected(client->socket, reason);
             pthread_mutex_unlock(&(guac_client_data->rdp_lock));
             return 1;
         }

@@ -702,6 +702,22 @@ int guac_protocol_send_disconnect(guac_socket* socket) {
 
 }
 
+int guac_protocol_send_disconnected(guac_socket* socket, int reason) {
+    int ret_val;
+
+    guac_socket_instruction_begin(socket);
+    ret_val =
+        guac_socket_write_string(socket, "12.disconnected,")
+        ||
+        __guac_socket_write_length_int(socket, reason)
+        ||
+        guac_socket_write_string(socket, ";")
+    ;
+    guac_socket_instruction_end(socket);
+    return ret_val;
+
+}
+
 int guac_protocol_send_dispose(guac_socket* socket, const guac_layer* layer) {
 
     int ret_val;
